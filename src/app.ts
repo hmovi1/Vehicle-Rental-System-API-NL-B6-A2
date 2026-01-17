@@ -1,17 +1,18 @@
+
+
+
+
+import './config';
+
 import express from 'express';
+import dotenv from 'dotenv';
+
+// Load env safely
+dotenv.config();
 
 const app = express();
 
-app.get('/', (_req, res) => {
-  res.status(200).json({ ok: true });
-});
-
-export default app;
-
-
-
-/*import './config';
-import express from 'express';
+app.use(express.json());
 
 
 import { initDB } from './database/db.js';
@@ -21,7 +22,7 @@ import { vehicleRoutes } from "./modules/vehicles/vehicle.route.js";
 import { bookingRoutes } from "./modules/bookings/booking.route.js";
 
 const PORT = process.env.PORT||5000;
-const app = express();
+
 
 app.use(express.json());
 
@@ -49,7 +50,6 @@ app.use((req, res) => {
 
 
 export default app;
-*/
 
 
 
