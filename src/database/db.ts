@@ -1,6 +1,6 @@
 
-import pkg from 'pg';
-const { Pool } = pkg;
+import pg from 'pg';
+const { Pool } = pg;
 
 export const pool = new Pool({
   connectionString: process.env.CONNECTION_STRING
