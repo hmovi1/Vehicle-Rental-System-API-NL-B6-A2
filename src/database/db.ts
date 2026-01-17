@@ -1,6 +1,5 @@
 
 import pg from 'pg';
-import env from 'dotenv';
 const { Pool } = pg;
 
 export const pool = new Pool({
