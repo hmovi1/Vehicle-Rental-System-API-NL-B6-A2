@@ -1,8 +1,8 @@
 // src/modules/booking/booking.controller.ts
 import { Request, Response } from 'express';
-import { createBookingInDB, getBookingsFromDB, updateBookingStatusInDB } from './booking.service.js';
-import { Roles } from '../auth/auth.constant.js';
-import { pool } from '../../database/db.js';
+import { createBookingInDB, getBookingsFromDB, updateBookingStatusInDB } from './booking.service';
+import { Roles } from '../auth/auth.constant';
+import { pool } from '../../database/db';
 
 export const createBooking = async (req: Request, res: Response) => {
   try {

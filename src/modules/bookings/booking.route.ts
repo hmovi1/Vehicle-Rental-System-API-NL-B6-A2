@@ -1,8 +1,8 @@
 // src/modules/booking/booking.route.ts
 import { Router } from 'express';
-import { createBooking, getBookings, updateBookingStatus } from './booking.controller.js';
-import { auth } from '../../middleware/auth-old.js';
-import { Roles } from '../auth/auth.constant.js';
+import { createBooking, getBookings, updateBookingStatus } from './booking.controller';
+import { auth } from '../../middleware/auth-old';
+import { Roles } from '../auth/auth.constant';
 const router = Router();
 
 router.post('/', auth(Roles.admin, Roles.customer),createBooking );

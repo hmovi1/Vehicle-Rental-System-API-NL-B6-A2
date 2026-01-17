@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import  jwt, { JwtPayload }  from "jsonwebtoken";
-import { pool } from "../database/db.js";
+import { pool } from "../database/db";
 
 
 

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { pool } from "../../database/db";
-import { userServices } from "./user.service.js";
+import { userServices } from "./user.service";
 
-import { Roles } from "../auth/auth.constant.js";
+import { Roles } from "../auth/auth.constant";
 import { error } from "node:console";
 
 
