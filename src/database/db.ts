@@ -1,10 +1,27 @@
 
-import pg from 'pg';
-const { Pool } = pg;
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+if (!process.env.CONNECTION_STRING) {
+  throw new Error('CONNECTION_STRING environment variable is not defined');
+}
 
 export const pool = new Pool({
   connectionString: process.env.CONNECTION_STRING,
-  ssl: { rejectUnauthorized: false }
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+// Test connection
+pool.on('connect', () => {
+  console.log('Database connected successfully');
+});
+
+pool.on('error', (err) => {
+  console.error('Unexpected database error:', err);
 });
 
 
