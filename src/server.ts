@@ -6,11 +6,11 @@ export default pool;
 import express from 'express';
 
 
-import { initDB } from './database/db';
-import { userRoute } from './modules/users/user.route';
-import { authRoute } from './modules/auth/auth.route';
-import { vehicleRoutes } from "./modules/vehicles/vehicle.route";
-import { bookingRoutes } from "./modules/bookings/booking.route";
+import { initDB } from './database/db.js';
+import { userRoute } from './modules/users/user.route.js';
+import { authRoute } from './modules/auth/auth.route.js';
+import { vehicleRoutes } from "./modules/vehicles/vehicle.route.js";
+import { bookingRoutes } from "./modules/bookings/booking.route.js";
 
 const PORT = process.env.PORT;
 const app = express()
