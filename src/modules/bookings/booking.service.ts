@@ -1,5 +1,5 @@
 
-import { pool } from "../../database/db";
+import { pool } from "../../database/db.js";
 
 interface CreateBookingPayload {
   customer_id: number;

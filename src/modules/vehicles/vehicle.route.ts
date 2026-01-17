@@ -1,8 +1,8 @@
 // src/modules/vehicle/vehicle.route.ts
 import { Router } from 'express';
-import * as vehicleController from "./vehicle.controller";
-import { auth } from '../../middleware/auth-old';
-import { Roles } from '../auth/auth.constant';
+import * as vehicleController from "./vehicle.controller.js";
+import { auth } from '../../middleware/auth-old.js';
+import { Roles } from '../auth/auth.constant.js';
 
 const router = Router();
 

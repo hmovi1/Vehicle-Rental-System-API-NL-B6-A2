@@ -1,5 +1,5 @@
 // src/modules/vehicle/vehicle.service.ts
-import { pool } from "../../database/db";
+import { pool } from "../../database/db.js";
 
 interface VehiclePayload {
   vehicle_name: string;
