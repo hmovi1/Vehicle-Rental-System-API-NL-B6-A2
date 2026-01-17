@@ -1,10 +1,12 @@
 
-import { Pool } from "pg";
-
+import pkg from 'pg';
+const { Pool } = pkg;
 
 export const pool = new Pool({
-    connectionString : process.env.CONNECTION_STRING
+  connectionString: process.env.CONNECTION_STRING
 });
+
+
 
 export const initDB = async () => {
   try {
