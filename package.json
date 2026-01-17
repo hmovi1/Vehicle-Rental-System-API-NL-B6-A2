@@ -1,12 +1,10 @@
 {
   "name": "vehicle-rental-system",
   "version": "1.0.0",
-  "main": "dist/app.js",
   "scripts": {
-    "dev": "tsx watch app.ts",
+    "dev": "tsx watch api/index.ts",
     "build": "tsc",
-    "start": "node dist/app.js",
-    "vercel-build": "npm run build"
+    "vercel-build": "tsc"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // File Structure
-    "rootDir": "./src",
+    "rootDir": "vercel",
     "outDir": "./dist",
     
     // MODULE SYSTEM - CommonJS for maximum Vercel compatibility
