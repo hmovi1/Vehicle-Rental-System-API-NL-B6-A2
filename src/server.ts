@@ -12,8 +12,8 @@ import { authRoute } from './modules/auth/auth.route.js';
 import { vehicleRoutes } from "./modules/vehicles/vehicle.route.js";
 import { bookingRoutes } from "./modules/bookings/booking.route.js";
 
-const PORT = process.env.PORT;
-const app = express()
+const PORT = process.env.PORT||5000;
+const app = express();
 
 app.use(express.json());
 
