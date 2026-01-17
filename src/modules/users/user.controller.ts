@@ -93,7 +93,7 @@ const deleteUser = async (req: Request, res: Response) => {
       role: 'admin' | 'customer';
     };
 
-    // CUSTOMER: can update only own profile
+    //can update only own profile
     if (
       loggedInUser.role === 'customer' &&
       loggedInUser.id !== targetUserId
@@ -106,7 +106,7 @@ const deleteUser = async (req: Request, res: Response) => {
 
     const { name, email, password, phone, role } = req.body;
 
-    // CUSTOMER cannot change role
+    // can't change role
     if (loggedInUser.role === 'customer' && role) {
       return res.status(403).json({
         success: false,
@@ -137,7 +137,7 @@ const deleteUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error('Error updating user:', error);
 
-    // Unique email violation
+    // Unique-email!
     if (error.code === '23505') {
       return res.status(409).json({
         success: false,

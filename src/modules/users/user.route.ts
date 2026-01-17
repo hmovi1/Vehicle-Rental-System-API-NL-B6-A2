@@ -7,7 +7,7 @@ const route = Router();
 //route.post("/api/v1/users", 
 
 route.get("/", auth(Roles.admin), userController.getAllUser);
-route.delete("/:userId",auth(Roles.admin),  userController.deleteUser);
+route.delete("/:userId",auth(Roles.admin), userController.deleteUser);
 route.put('/:userId', auth(Roles.admin , Roles.customer) , userController.updateUser);
 
 

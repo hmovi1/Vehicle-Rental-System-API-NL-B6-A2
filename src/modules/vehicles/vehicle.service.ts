@@ -69,6 +69,9 @@ export const createVehicleInDB = async (payload: VehiclePayload) => {
   return rows[0];
 };
 
+
+
+
 export const getVehicleByIdFromDB = async (vehicleId: number) => {
   const query = `
     SELECT 
@@ -134,13 +137,15 @@ export const updateVehicleInDB = async (
   return rows[0];
 };
 
+
+
 export const deleteVehicleFromDB = async (vehicleId: number) => {
   const client = await pool.connect();
 
   try {
     await client.query("BEGIN");
 
-    // Check if vehicle exists
+    // vehicel???
     const vehicleRes = await client.query(
       `SELECT id FROM vehicles WHERE id = $1`,
       [vehicleId]
@@ -150,7 +155,7 @@ export const deleteVehicleFromDB = async (vehicleId: number) => {
       throw new Error("VEHICLE_NOT_FOUND");
     }
 
-    // Check for active bookings
+    // booking?
     const activeBookingRes = await client.query(
       `
       SELECT 1
@@ -166,7 +171,7 @@ export const deleteVehicleFromDB = async (vehicleId: number) => {
       throw new Error("VEHICLE_HAS_ACTIVE_BOOKINGS");
     }
 
-    // Delete vehicle
+    // Del-V
     await client.query(
       `DELETE FROM vehicles WHERE id = $1`,
       [vehicleId]

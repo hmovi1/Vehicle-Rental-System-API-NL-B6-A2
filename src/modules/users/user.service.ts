@@ -27,7 +27,7 @@ export const deleteUserInDB = async (userId: number) => {
   try {
     await client.query('BEGIN');
 
-    // Check for active bookings
+    // Check active
     const activeBookingCheck = await client.query(
       `SELECT 1 FROM bookings WHERE customer_id = $1 AND status = 'active'`,
       [userId]
@@ -37,7 +37,7 @@ export const deleteUserInDB = async (userId: number) => {
       throw new Error('USER_HAS_ACTIVE_BOOKINGS');
     }
 
-    // Delete user
+    // Del-user
     const deleteQuery = `DELETE FROM users WHERE id = $1 RETURNING id, name, email`;
     const result = await client.query(deleteQuery, [userId]);
 

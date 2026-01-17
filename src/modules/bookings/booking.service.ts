@@ -173,96 +173,7 @@ export const getBookingsFromDB = async (user: {
 
 
 
-/*export const updateBookingStatusInDB = async (
-  bookingId: number,
-  requestStatus:'active' | 'cancelled' | 'returned',
-  userRole: 'admin' | 'customer',
-  userId: number
-) => {
-  const client = await pool.connect();
 
-  try {
-    await client.query('BEGIN');
-
-    // Lock booking row
-    const bookingRes = await client.query(
-      `SELECT * FROM bookings WHERE id=$1 FOR UPDATE`,
-      [bookingId]
-    );
-
-    if (!bookingRes.rows.length) {
-      throw new Error('BOOKING_NOT_FOUND');
-    }
-
-    const booking = bookingRes.rows[0];
-
-    // Lock vehicle row
-    const vehicleRes = await client.query(
-      `SELECT * FROM vehicles WHERE id=$1 FOR UPDATE`,
-      [booking.vehicle_id]
-    );
-
-    const vehicle = vehicleRes.rows[0];
-
-    const today = new Date();
-    const rentStartDate = new Date(booking.rent_start_date);
-    const rentEndDate = new Date(booking.rent_end_date);
-
-    let newStatus: BookingStatus | null = null;
-
-    if (userRole === 'customer') {
-      // Customers can cancel only before start date
-      if (booking.customer_id !== userId) {
-        throw new Error('NOT_AUTHORIZED');
-      }
-      if (today >= rentStartDate) {
-        throw new Error('CANNOT_CANCEL_AFTER_START');
-      }
-      newStatus = 'cancelled';
-    } else if (userRole === 'admin') {
-      // Admin can mark returned
-      if (booking.status !== 'active') {
-        throw new Error('ONLY_ACTIVE_CAN_BE_RETURNED');
-      }
-      newStatus = 'returned';
-    }
-
-    // System auto-return logic
-    if (booking.status === 'active' && today > rentEndDate) {
-      newStatus = 'returned';
-    }
-
-    // If status changes
-    if (newStatus) {
-      const updateBookingQuery = `
-        UPDATE bookings SET status=$1 WHERE id=$2 RETURNING *
-      `;
-      const updatedBooking = await client.query(updateBookingQuery, [
-        newStatus,
-        bookingId,
-      ]);
-
-      // Update vehicle availability if booking is cancelled or returned
-      if (['cancelled', 'returned'].includes(newStatus)) {
-        await client.query(
-          `UPDATE vehicles SET availability_status='available' WHERE id=$1`,
-          [booking.vehicle_id]
-        );
-      }
-
-      await client.query('COMMIT');
-      return updatedBooking.rows[0];
-    } else {
-      await client.query('COMMIT');
-      return booking; // no changes
-    }
-  } catch (error) {
-    await client.query('ROLLBACK');
-    throw error;
-  } finally {
-    client.release();
-  }
-}; */
 
 export const updateBookingStatusInDB = async (
   bookingId: number,
@@ -275,7 +186,7 @@ export const updateBookingStatusInDB = async (
   try {
     await client.query('BEGIN');
 
-    // Lock booking
+
     const bookingRes = await client.query(
       `SELECT * FROM bookings WHERE id=$1 FOR UPDATE`,
       [bookingId]
@@ -284,7 +195,7 @@ export const updateBookingStatusInDB = async (
     if (!bookingRes.rows.length) throw new Error('BOOKING_NOT_FOUND');
     const booking = bookingRes.rows[0];
 
-    // Lock vehicle
+
     const vehicleRes = await client.query(
       `SELECT * FROM vehicles WHERE id=$1 FOR UPDATE`,
       [booking.vehicle_id]
@@ -297,7 +208,7 @@ export const updateBookingStatusInDB = async (
 
     let newStatus: 'active' | 'cancelled' | 'returned' = booking.status;
 
-    // ---------- CUSTOMER ----------
+    // customer
     if (userRole === 'customer') {
       if (booking.customer_id !== userId) throw new Error('NOT_AUTHORIZED');
 
@@ -311,7 +222,7 @@ export const updateBookingStatusInDB = async (
       }
     }
 
-    // ---------- ADMIN ----------
+    // adminlogic
     if (userRole === 'admin') {
       if (requestStatus === 'returned') {
         if (booking.status !== 'active') throw new Error('ONLY_ACTIVE_CAN_BE_RETURNED');
@@ -321,12 +232,12 @@ export const updateBookingStatusInDB = async (
       }
     }
 
-    // ---------- SYSTEM AUTO-RETURN ----------
+    // returnlogic
     if (booking.status === 'active' && today > rentEndDate) {
       newStatus = 'returned';
     }
 
-    // ---------- UPDATE ----------
+    //updat
     if (newStatus !== booking.status) {
       const updatedBookingRes = await client.query(
         `UPDATE bookings SET status=$1 WHERE id=$2 RETURNING *`,

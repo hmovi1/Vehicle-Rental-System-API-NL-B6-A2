@@ -21,7 +21,7 @@ export const createBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // CUSTOMER can only create booking for self
+    // Cus can only create booking for himself
     const finalCustomerId =
       loggedInUser.role === Roles.admin
         ? customer_id || loggedInUser.id
@@ -100,109 +100,13 @@ export const getBookings = async (req: Request, res: Response) => {
   }
 };
 
-/*export const updateBookingStatus = async (req: Request, res: Response) => {
-  try {
-    const loggedInUser = req.user as { id: number; role: 'admin' | 'customer' };
-    const bookingId = Number(req.params.bookingId);
-
-    if (isNaN(bookingId) || bookingId <= 0) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid booking ID',
-      });
-    }
-
-    const updatedBooking = await updateBookingStatusInDB(
-      bookingId,
-      requestStatus,
-      loggedInUser.role,
-      loggedInUser.id
-    );
-
-    // Separate success responses based on final status
-    if (updatedBooking.status === 'cancelled') {
-      return res.status(200).json({
-        success: true,
-        message: 'Booking cancelled successfully',
-        data: {
-          id: updatedBooking.id,
-          customer_id: updatedBooking.customer_id,
-          vehicle_id: updatedBooking.vehicle_id,
-          rent_start_date: updatedBooking.rent_start_date,
-          rent_end_date: updatedBooking.rent_end_date,
-          total_price: updatedBooking.total_price,
-          status: updatedBooking.status,
-        },
-      });
-    }
-
-    if (updatedBooking.status === 'returned') {
-      return res.status(200).json({
-        success: true,
-        message: 'Booking marked as returned. Vehicle is now available',
-        data: {
-          id: updatedBooking.id,
-          customer_id: updatedBooking.customer_id,
-          vehicle_id: updatedBooking.vehicle_id,
-          rent_start_date: updatedBooking.rent_start_date,
-          rent_end_date: updatedBooking.rent_end_date,
-          total_price: updatedBooking.total_price,
-          status: updatedBooking.status,
-          vehicle: {
-            availability_status: updatedBooking.vehicle?.availability_status,
-          },
-        },
-      });
-    }
-
-    // Fallback (if new statuses are added later)
-    return res.status(200).json({
-      success: true,
-      message: 'Booking status updated successfully',
-      data: updatedBooking,
-    });
-  } catch (error: any) {
-    console.error('Update booking status error:', error);
-
-    if (error.message === 'BOOKING_NOT_FOUND') {
-      return res.status(404).json({ success: false, message: 'Booking not found' });
-    }
-
-    if (error.message === 'CANNOT_CANCEL_AFTER_START') {
-      return res.status(400).json({
-        success: false,
-        message: 'Cannot cancel booking after start date',
-      });
-    }
-
-    if (error.message === 'NOT_AUTHORIZED') {
-      return res.status(403).json({
-        success: false,
-        message: 'Not authorized',
-      });
-    }
-
-    if (error.message === 'ONLY_ACTIVE_CAN_BE_RETURNED') {
-      return res.status(400).json({
-        success: false,
-        message: 'Only active bookings can be marked as returned',
-      });
-    }
-
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to update booking status',
-    });
-  }
-};
-*/
 
 export const updateBookingStatus = async (req: Request, res: Response) => {
   try {
     const loggedInUser = req.user as { id: number; role: 'admin' | 'customer' };
     const bookingId = Number(req.params.bookingId);
 
-    // ---------- SAFE BODY PARSING ----------
+    // body parsing safety
     let requestBody: any = req.body;
 
     // If body is a string (raw), try parsing
@@ -242,7 +146,7 @@ export const updateBookingStatus = async (req: Request, res: Response) => {
       vehicleData = vehicleRes.rows[0] || null;
     }
 
-    // ---------- RESPONSE ----------
+    // respond
     if (updatedBooking.status === 'cancelled') {
       return res.status(200).json({
         success: true,

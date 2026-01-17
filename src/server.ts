@@ -21,7 +21,9 @@ app.use(express.json());
 
 initDB();
 
-
+app.get("/", (req, res) => {
+  res.send("Vehicle Rental System API is running");
+});
 
 app.use("/api/v1/users", userRoute);
 
