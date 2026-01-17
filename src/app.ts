@@ -1,4 +1,16 @@
-import './config';
+import express from 'express';
+
+const app = express();
+
+app.get('/', (_req, res) => {
+  res.status(200).json({ ok: true });
+});
+
+export default app;
+
+
+
+/*import './config';
 import express from 'express';
 
 
@@ -37,6 +49,7 @@ app.use((req, res) => {
 
 
 export default app;
+*/
 
 
 
