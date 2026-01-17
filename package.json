@@ -1,5 +1,8 @@
 {
   "type": "module",
+   "engines": {
+  "node": "20.x"
+  },
 
   "name": "vehicle-rental-system",
   "version": "1.0.0",
