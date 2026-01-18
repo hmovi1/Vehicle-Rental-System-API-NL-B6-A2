@@ -2,8 +2,9 @@
   "name": "vehicle-rental-system",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx watch api/index.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
+    "start": "node dist/server.js",
     "vercel-build": "tsc"
   },
   "dependencies": {

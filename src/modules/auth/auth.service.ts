@@ -50,7 +50,11 @@ const signInUserFromDB = async (email: string, password: string) => {
    
    
 
-   const token = jwt.sign(jwtPayload,  '2cf41f1e28074c2032637b0f1fdbb102333c95078ffd6d9ab7d8d369d76e2d06' , { expiresIn: "7d" });
+   const secret = process.env.JWT_SECRET;
+if (!secret) {
+  throw new Error("JWT_SECRET is not configured");
+}
+const token = jwt.sign(jwtPayload, secret, { expiresIn: "7d" });
 
   return { token, user: user.rows[0] };
 };
