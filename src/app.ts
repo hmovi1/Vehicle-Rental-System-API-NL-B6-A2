@@ -1,22 +1,21 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 
-// Load environment variables
+
 dotenv.config();
 
 const app = express();
 
-// -------------------- MIDDLEWARE --------------------
+
 app.use(express.json());
 
-// -------------------- ROUTES IMPORT -----------------
-// Remove .js extensions - TypeScript will handle module resolution
+
 import { userRoute } from './modules/users/user.route';
 import { authRoute } from './modules/auth/auth.route';
 import { vehicleRoutes } from './modules/vehicles/vehicle.route';
 import { bookingRoutes } from './modules/bookings/booking.route';
 
-// -------------------- HEALTH CHECK ------------------
+
 app.get('/', (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
@@ -26,13 +25,13 @@ app.get('/', (_req: Request, res: Response) => {
   });
 });
 
-// -------------------- API ROUTES --------------------
+
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/vehicles', vehicleRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 
-// -------------------- 404 HANDLER -------------------
+
 app.use((_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
@@ -47,7 +46,6 @@ app.use((_req: Request, res: Response) => {
   });
 });
 
-// -------------------- ERROR HANDLER -----------------
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   console.error('Error:', err);
   res.status(err.status || 500).json({
@@ -57,5 +55,5 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// Export for Vercel serverless
+
 export default app;

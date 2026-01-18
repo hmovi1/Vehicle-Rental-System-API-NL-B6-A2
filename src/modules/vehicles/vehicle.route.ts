@@ -1,4 +1,3 @@
-// src/modules/vehicle/vehicle.route.ts
 import { Router } from 'express';
 import * as vehicleController from "./vehicle.controller";
 import { auth } from '../../middleware/auth-old';

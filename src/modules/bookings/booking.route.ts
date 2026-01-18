@@ -1,4 +1,4 @@
-// src/modules/booking/booking.route.ts
+
 import { Router } from 'express';
 import { createBooking, getBookings, updateBookingStatus } from './booking.controller';
 import { auth } from '../../middleware/auth-old';

@@ -1,4 +1,4 @@
-// src/modules/vehicle/vehicle.controller.ts
+
 import { Request, Response } from 'express';
 import * as vehicleService from './vehicle.service';
 import { NextFunction } from 'express';

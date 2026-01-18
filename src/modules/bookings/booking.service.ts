@@ -16,7 +16,6 @@ export const createBookingInDB = async (payload: CreateBookingPayload) => {
   try {
     await client.query('BEGIN');
 
-    // 1 Lock vehicle row to prevent race conditions
     const vehicleQuery = `
       SELECT daily_rent_price, availability_status
       FROM vehicles
@@ -37,9 +36,7 @@ export const createBookingInDB = async (payload: CreateBookingPayload) => {
       throw new Error('VEHICLE_NOT_AVAILABLE');
     }
 
-    // 2️ Calculate rental duration in days
-    // Calculate rental days
-    // Calculate rental days
+    
 const start = new Date(payload.rent_start_date);
 const end = new Date(payload.rent_end_date);
 const days = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
@@ -51,7 +48,6 @@ if (isNaN(dailyPrice)) throw new Error('INVALID_DAILY_PRICE');
 
 const totalPrice = dailyPrice * days;
 
-    // 3️ Insert booking
     const bookingQuery = `
       INSERT INTO bookings (
         customer_id,
@@ -73,7 +69,6 @@ const totalPrice = dailyPrice * days;
     ];
     const bookingResult = await client.query(bookingQuery, bookingValues);
 
-    // 4️ Update vehicle status to "booked"
     const updateVehicleQuery = `
       UPDATE vehicles
       SET availability_status = 'booked'
@@ -101,7 +96,6 @@ export const getBookingsFromDB = async (user: {
   try {
     await client.query('BEGIN');
 
-    // 1️ Auto-return logic: mark past bookings as returned
     const today = new Date().toISOString().split('T')[0];
 
     const autoReturnQuery = `
@@ -118,7 +112,6 @@ export const getBookingsFromDB = async (user: {
       today,
     ]);
 
-    // 2 Update vehicle availability for returned bookings
     if (autoReturnedBookings.rows.length > 0) {
       const vehicleIds = autoReturnedBookings.rows.map((r) => r.vehicle_id);
       const updateVehiclesQuery = `
@@ -129,7 +122,6 @@ export const getBookingsFromDB = async (user: {
       await client.query(updateVehiclesQuery, [vehicleIds]);
     }
 
-    // 3️ Fetch bookings
     let bookingsQuery = `
       SELECT 
         b.id,

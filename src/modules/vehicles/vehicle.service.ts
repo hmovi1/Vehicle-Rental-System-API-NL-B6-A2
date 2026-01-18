@@ -145,7 +145,7 @@ export const deleteVehicleFromDB = async (vehicleId: number) => {
   try {
     await client.query("BEGIN");
 
-    // vehicel???
+    // vehicle???
     const vehicleRes = await client.query(
       `SELECT id FROM vehicles WHERE id = $1`,
       [vehicleId]

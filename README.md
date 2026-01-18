@@ -185,5 +185,3 @@ ChatGPT - GPT 5.2
 *db.ts and server.ts minor readjustments*
 
 *config tsconfig package files were adjusted accordingly.*
-
-*Some commits has comment adjustments for a more human like feel*

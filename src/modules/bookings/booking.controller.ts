@@ -1,4 +1,4 @@
-// src/modules/booking/booking.controller.ts
+
 import { Request, Response } from 'express';
 import { createBookingInDB, getBookingsFromDB, updateBookingStatusInDB } from './booking.service';
 import { Roles } from '../auth/auth.constant';
