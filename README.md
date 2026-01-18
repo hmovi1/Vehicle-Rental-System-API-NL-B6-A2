@@ -1,6 +1,6 @@
 # Vehicle Rental System
 
-**Live URL:** [https://vehicle-rental-system-hjpg2xraq-hmovi1s-projects.vercel.app](https://vehicle-rental-system-hjpg2xraq-hmovi1s-projects.vercel.app)
+**Live URL:** [https://vehicle-rental-system-beta-ten.vercel.app](https://vehicle-rental-system-beta-ten.vercel.app)
 
 ---
 
