@@ -169,3 +169,21 @@ for example, update a booking status via
 
 To deploy to Vercel, run `vercel --prod` and ensure that environment variables are configured in the Vercel dashboard.
 Make sure your PostgreSQL database is accessible remotely using a cloud service like Supabase, Heroku, or AWS RDS.
+
+
+## AI Transparency
+
+This project was debugged using AI at critical conflict points to deliver flawless consistency
+and DB consistencies.
+
+Claude Code - Sonnet 4.5
+ChatGPT - GPT 5.2
+
+**Some logics were further refined**
+
+*Critical Vercel Deployment issues needed AI assisted edit in app.ts auth-old.ts*
+*db.ts and server.ts minor readjustments*
+
+*config tsconfig package files were adjusted accordingly.*
+
+*Some commits has comment adjustments for a more human like feel*
