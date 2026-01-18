@@ -172,13 +172,13 @@ export const deleteVehicleFromDB = async (vehicleId: number) => {
     }
 
     //detach the vehicle from a returned/cancelled vehicle for safe deletion without any foreign key issues 
-    await client.query(
+    /*await client.query(
       `UPDATE bookings
        SET vehicle_id = NULL
        WHERE vehicle_id = $1
        AND status IN ('returned', 'cancelled')`,
       [vehicleId]
-    );
+    );*/
 
     // Del-V
     await client.query(
